@@ -22,7 +22,7 @@ export const initialState = [
   },
 ];
 
-export const reducer = (state: IState[], action: IAction) => {
+export const reducer = (state: IState[], action: IAction): IState[] => {
   switch (action.type) {
     case COMPLETE:
       return state.map((i) => {

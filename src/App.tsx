@@ -2,6 +2,10 @@ import React, { useLayoutEffect, useReducer, useRef, useState } from "react";
 import "./App.css";
 import { COMPLETE, initialState, reducer, UNCOMPLETE } from "./reducer";
 import { Dispatch } from "redux";
+import Page from "./Page";
+import { AuthContext } from "./authContext";
+import { ThemeContext, themes } from "./themeContext";
+import Page2 from "./Page2";
 
 interface IData {
   name: string;
@@ -31,6 +35,21 @@ function App() {
   });
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [isAuth, setIsAuth] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState(themes.light);
+
+  const toggleTheme = () => {
+    if (currentTheme === themes.dark) {
+      setCurrentTheme(themes.light);
+      return;
+    }
+    setCurrentTheme(themes.dark);
+  };
+
+  const value = {
+    isAuth,
+    setIsAuth,
+  };
 
   return (
     <div className="App">
@@ -55,6 +74,12 @@ function App() {
           {i.name}
         </div>
       ))}
+      <AuthContext.Provider value={value}>
+        <Page />
+      </AuthContext.Provider>
+      <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
+        <Page2 />
+      </ThemeContext.Provider>
     </div>
   );
 }
