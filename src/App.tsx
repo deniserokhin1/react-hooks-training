@@ -7,6 +7,7 @@ import { AuthContext } from "./authContext";
 import { ThemeContext, themes } from "./themeContext";
 import Page2 from "./Page2";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useOutSide } from "./hooks/useOutside";
 
 interface IData {
   name: string;
@@ -55,6 +56,10 @@ function App() {
   const [todos, setTodos] = useLocalStorage("todos", initialState);
   const [auth, setAuth] = useLocalStorage("auth", false);
 
+  const { isShow, ref, setIsShow } = useOutSide(false);
+
+  console.log(isShow);
+
   return (
     <div className="App">
       <input
@@ -85,6 +90,7 @@ function App() {
         <Page2 />
       </ThemeContext.Provider>
       <button
+        ref={ref}
         onClick={() =>
           setTodos(
             todos.map((t: any, i: number) => {
@@ -98,6 +104,14 @@ function App() {
       </button>
       <button onClick={() => setAuth(!auth)}>Поменять состояние</button>
       {auth && <div>Йоу камон!</div>}
+      <button ref={ref} onClick={() => setIsShow(!isShow)}>
+        Показать квадрат
+      </button>
+      {isShow && (
+        <div
+          style={{ width: "300px", height: "300px", background: "blue" }}
+        ></div>
+      )}
     </div>
   );
 }
