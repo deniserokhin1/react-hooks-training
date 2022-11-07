@@ -9,6 +9,8 @@ import Page2 from "./Page2";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useOutSide } from "./hooks/useOutside";
 import MyInput from "./MyInput";
+import UseCookie from "./UseCookie";
+import UseFetch from "./UseFetch";
 
 interface IData {
   name: string;
@@ -58,8 +60,6 @@ function App() {
   const [auth, setAuth] = useLocalStorage("auth", false);
 
   const { isShow, ref, setIsShow } = useOutSide(false);
-
-  console.log(isShow);
 
   return (
     <div className="App">
@@ -114,6 +114,8 @@ function App() {
         ></div>
       )}
       <MyInput />
+      <UseCookie />
+      <UseFetch />
     </div>
   );
 }
