@@ -8,6 +8,7 @@ import { ThemeContext, themes } from "./themeContext";
 import Page2 from "./Page2";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useOutSide } from "./hooks/useOutside";
+import MyInput from "./MyInput";
 
 interface IData {
   name: string;
@@ -112,6 +113,7 @@ function App() {
           style={{ width: "300px", height: "300px", background: "blue" }}
         ></div>
       )}
+      <MyInput />
     </div>
   );
 }
