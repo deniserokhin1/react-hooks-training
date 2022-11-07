@@ -3,8 +3,6 @@ import { ThemeUseContext } from "./hooks/themeUseContext";
 
 const Page2 = () => {
   const { theme, toggleTheme } = ThemeUseContext();
-  console.log(theme.background);
-  console.log(theme.color);
   return (
     <div
       style={{

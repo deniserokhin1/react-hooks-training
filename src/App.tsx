@@ -6,6 +6,7 @@ import Page from "./Page";
 import { AuthContext } from "./authContext";
 import { ThemeContext, themes } from "./themeContext";
 import Page2 from "./Page2";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 interface IData {
   name: string;
@@ -29,10 +30,10 @@ function App() {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useLayoutEffect(() => {
-    console.log(data.phone);
-    console.log(inputRef.current?.value);
-  });
+  // useLayoutEffect(() => {
+  //   console.log(data.phone);
+  //   console.log(inputRef.current?.value);
+  // });
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [isAuth, setIsAuth] = useState(false);
@@ -50,6 +51,9 @@ function App() {
     isAuth,
     setIsAuth,
   };
+
+  const [todos, setTodos] = useLocalStorage("todos", initialState);
+  const [auth, setAuth] = useLocalStorage("auth", false);
 
   return (
     <div className="App">
@@ -80,6 +84,20 @@ function App() {
       <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme }}>
         <Page2 />
       </ThemeContext.Provider>
+      <button
+        onClick={() =>
+          setTodos(
+            todos.map((t: any, i: number) => {
+              if (i === 1) t.isCompleted = !t.isCompleted;
+              return t;
+            })
+          )
+        }
+      >
+        Выполнить вторую задачу
+      </button>
+      <button onClick={() => setAuth(!auth)}>Поменять состояние</button>
+      {auth && <div>Йоу камон!</div>}
     </div>
   );
 }
